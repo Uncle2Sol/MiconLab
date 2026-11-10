@@ -1,0 +1,15 @@
+[package]
+name = "miconlab-example-plugin"
+version = "0.1.0"
+edition = "2021"
+description = "Example plugin for miconlab"
+license = "PolyForm-Noncommercial-1.0.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+miconlab-plugin-api = { path = "../../crates/miconlab-plugin-api" }

@@ -1,0 +1,29 @@
+[package]
+name = "miconlab-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core library for miconlab serial port assistant"
+license = "PolyForm-Noncommercial-1.0.0"
+
+[features]
+# 设备工作区核心实现（协议解析、设备管线、固件仿真器）。
+# 默认关闭：由 miconlab-gui 的 device-workspaces 特性按需启用。
+# 公开版不开启此特性，因此设备模块源码与文案都不会进入公开构建。
+device-workspaces = []
+
+[dependencies]
+serialport = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = { workspace = true }
+chrono = { workspace = true }
+regex = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+log = { workspace = true }
+miconlab-plugin-api = { path = "../miconlab-plugin-api" }
+libloading = { workspace = true }
+nusb = { workspace = true }
+tokio = { workspace = true }
+tokio-tungstenite = { workspace = true }
+futures-util = { workspace = true }

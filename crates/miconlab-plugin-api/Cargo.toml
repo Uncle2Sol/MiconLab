@@ -1,0 +1,10 @@
+[package]
+name = "miconlab-plugin-api"
+version = "0.1.0"
+edition = "2021"
+description = "miconlab Plugin API"
+license = "PolyForm-Noncommercial-1.0.0"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }

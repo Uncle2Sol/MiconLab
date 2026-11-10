@@ -1,0 +1,25 @@
+[package]
+name = "miconlab-ai"
+version = "0.1.0"
+edition = "2021"
+description = "AI engine for miconlab: protocol fingerprinting, anomaly detection, diagnostics, optional LLM"
+license = "PolyForm-Noncommercial-1.0.0"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+log = { workspace = true }
+
+# 可选：在线 LLM 对话增强（用户配置 API key 后启用）
+# 通过 feature flag 控制，默认不启用，保持纯离线构建能力
+reqwest = { workspace = true, optional = true, features = ["stream"] }
+tokio = { workspace = true, optional = true }
+futures-util = { workspace = true, optional = true }
+
+[features]
+default = []
+# 启用在线 LLM 对话（OpenAI 兼容 API）
+llm-online = ["dep:reqwest", "dep:tokio"]
+# 启用 Ollama 本地模型识别（芯片/固件/协议自动识别，纯本地推理）
+ollama = ["dep:reqwest", "dep:tokio", "dep:futures-util"]

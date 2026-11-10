@@ -1,0 +1,51 @@
+[package]
+name = "miconlab-gui"
+version = "0.4.0"
+edition = "2021"
+description = "miconlab GUI Application"
+license = "PolyForm-Noncommercial-1.0.0"
+
+[[bin]]
+name = "miconlab"
+path = "src/main.rs"
+
+[features]
+default = ["llm-online", "ollama"]
+# 设备三工作区（设备总入口 + 三台设备的专用上位机）。
+# 公开版关闭此 feature：只保留「设备上位机」占位入口，其余通用面板全部保留。
+# 同时启用 miconlab-core 的设备实现与语言包设备 overlay。
+device-workspaces = ["miconlab-core/device-workspaces"]
+# 在线 LLM 对话增强（reqwest + tokio）
+llm-online = ["miconlab-ai/llm-online"]
+# Ollama 本地模型自动识别（芯片/固件/协议，纯本地推理，失败静默降级规则引擎）
+ollama = ["miconlab-ai/ollama"]
+
+[dependencies]
+miconlab-core = { path = "../miconlab-core", default-features = false }
+miconlab-ai = { path = "../miconlab-ai" }
+log = { workspace = true }
+eframe = { workspace = true }
+egui = { workspace = true }
+egui_extras = { workspace = true, features = ["syntect", "svg"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+rfd = { workspace = true }
+# 多语言：系统语言检测（Windows/macOS/Linux 统一 API）+ 语言包解析
+sys-locale = "0.3"
+toml = { workspace = true }
+
+# macOS 运行时 Dock 图标（版本与 winit 已编译的依赖树一致，零额外编译成本）
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-app-kit = { version = "0.3", features = ["NSApplication", "NSImage"] }
+objc2-foundation = { version = "0.3", features = ["NSString", "NSData"] }
+
+# L2 固件协议一致性测试：编译 FA008_reversed 固件 protocol.c（build.rs，固件存在才启用）
+[build-dependencies]
+cc = "1"
+
+[dev-dependencies]
+serialport = { workspace = true }
+# 校验内置 CJK 字体在所有平台上都能解析出中文字形
+ttf-parser = "0.25"

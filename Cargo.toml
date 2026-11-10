@@ -1,0 +1,73 @@
+[package]
+name = "miconlab-tests"
+version = "0.1.0"
+edition = "2021"
+publish = false
+license = "PolyForm-Noncommercial-1.0.0"
+
+[dependencies]
+miconlab-core = { path = "crates/miconlab-core" }
+
+[dev-dependencies]
+assert_cmd = { workspace = true }
+predicates = { workspace = true }
+serde_json = { workspace = true }
+criterion = { workspace = true }
+
+[[bench]]
+name = "serial_benchmarks"
+harness = false
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/miconlab-core",
+    "crates/miconlab-cli",
+    "crates/miconlab-gui",
+    "crates/miconlab-launcher",
+    "crates/miconlab-plugin-api",
+    "crates/miconlab-ai",
+    "plugins/miconlab-example-plugin",
+]
+
+[workspace.dependencies]
+serialport = "4.7"
+clap = { version = "4", features = ["derive"] }
+eframe = "0.29"
+egui = "0.29"
+egui_extras = "0.29"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+toml = "0.8"
+chrono = { version = "0.4", features = ["serde"] }
+regex = "1"
+thiserror = "2"
+anyhow = "1"
+log = "0.4"
+rfd = "0.15"
+libloading = "0.8"
+arboard = "3"
+png = "0.17"
+objc2 = "0.5"
+base64 = "0.22"
+assert_cmd = "2"
+predicates = "3"
+criterion = "0.5"
+# USB 直连（SPI Flash 读写）
+nusb = "0.1"
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "time", "sync"] }
+# WebSocket 服务器（Web Bridge）
+tokio-tungstenite = "0.24"
+futures-util = "0.3"
+# AI 在线 LLM 客户端（feature gate，默认禁用）
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+
+# Release 构建优化配置
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = true
+panic = "abort"

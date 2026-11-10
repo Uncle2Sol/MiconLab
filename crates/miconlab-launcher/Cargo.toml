@@ -1,0 +1,12 @@
+[package]
+name = "miconlab-launcher"
+version = "0.1.0"
+edition = "2021"
+description = "Quick launcher for miconlab GUI/CLI/MCP"
+license = "PolyForm-Noncommercial-1.0.0"
+
+[[bin]]
+name = "miconlab-launcher"
+path = "src/main.rs"
+
+[dependencies]

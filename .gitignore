@@ -1,0 +1,62 @@
+# Rust
+/target
+**/*.rs.bk
+
+# 跨平台构建脚本的产物（scripts/build-*）
+/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+**/.DS_Store
+Thumbs.db
+*.log
+
+# Build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test output
+tests/output/
+
+# Claude Code
+.claude/
+.claude-phases/
+
+# Non-core files
+wechat_article.html
+assets/screenshot_website.png
+
+# Python test files
+test_*.py
+
+# Website (deployed separately to Cloudflare Pages)
+website/
+
+# Cloudflare Wrangler cache
+.wrangler/
+
+# 仅本机：设备固件工程路径（不随公开版导出）
+crates/miconlab-gui/device-fw-dir.txt
+# 仅本机：设备资产目录指针（资产已归档到仓库外）
+crates/miconlab-gui/devices-dir.txt
+
+# 过程性产物（审核/审计/报告/方案/抓包日志）——统一放仓库外 ~/Documents/miconlab-审核/
+*审核*
+*审计*
+*整改*
+*复盘*
+*清单*.md
+*报告*.md
+*方案*.md
+*_REPORT.md
+*-report.md
+captured_*.bin
