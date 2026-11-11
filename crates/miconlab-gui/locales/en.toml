@@ -7,7 +7,7 @@
 __name = "English"
 
 # ---------- 兼容旧点分 key ----------
-"app.title" = "miconlab"
+"app.title" = "MiconLab"
 "app.subtitle" = "mcu serial workbench · 单片机实验室"
 "menu.file" = "File"
 "menu.view" = "View"

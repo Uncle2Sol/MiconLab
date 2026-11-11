@@ -10,6 +10,25 @@ use crate::theme;
 use egui::{Color32, RichText, Vec2};
 use std::time::Duration;
 
+/// 应用内品牌组合标（竖版 lockup）：标记图 + 字标。
+/// 标记与应用图标同源（scripts/icon_preview.png → icon_embedded.png），字标固定为品牌写法 `MiconLab`。
+fn brand_lockup(ui: &mut egui::Ui, mark: f32, text: f32, text_color: Color32) {
+    ui.add(
+        egui::Image::from_bytes(
+            "bytes://app-icon.png",
+            include_bytes!("../icon_embedded.png"),
+        )
+        .fit_to_exact_size(egui::Vec2::splat(mark)),
+    );
+    ui.add_space(1.0);
+    ui.label(
+        RichText::new("MiconLab")
+            .color(text_color)
+            .strong()
+            .size(text),
+    );
+}
+
 /// 主应用
 pub struct AppRoot {
     pub state: AppState,
@@ -100,12 +119,8 @@ impl eframe::App for AppRoot {
                 .show(ctx, |ui| {
                     ui.vertical_centered(|ui| {
                         ui.add_space(6.0);
-                        ui.label(
-                            RichText::new(crate::i18n::t("app.title"))
-                                .color(theme::ACCENT)
-                                .strong()
-                                .size(20.0),
-                        );
+                        brand_lockup(ui, 56.0, 18.0, theme::TEXT_PRIMARY);
+                        ui.add_space(2.0);
                         ui.label(
                             RichText::new(crate::i18n::t("app.subtitle"))
                                 .color(theme::TEXT_SECONDARY),
@@ -247,21 +262,9 @@ fn render_menu_bar(ui: &mut egui::Ui, state: &mut AppState, l10n: &L10n) {
 /// 渲染左侧导航面板
 fn render_nav_panel(ui: &mut egui::Ui, state: &mut AppState, l10n: &L10n) {
     ui.vertical(|ui| {
-        // 导航栏品牌图标：与应用图标同源（scripts/icon_preview.png 生成）
+        // 导航栏品牌组合标：标记与应用图标同源（scripts/icon_preview.png 生成）
         ui.vertical_centered(|ui| {
-            ui.add(
-                egui::Image::from_bytes(
-                    "bytes://app-icon.png",
-                    include_bytes!("../icon_embedded.png"),
-                )
-                .fit_to_exact_size(egui::Vec2::splat(26.0)),
-            );
-            ui.label(
-                RichText::new("miconlab")
-                    .color(theme::TEXT_PRIMARY)
-                    .strong()
-                    .size(12.5),
-            );
+            brand_lockup(ui, 26.0, 12.5, theme::TEXT_PRIMARY);
         });
         ui.add_space(6.0);
         ui.separator();
@@ -450,12 +453,7 @@ fn render_welcome_screen(ui: &mut egui::Ui) -> bool {
     // ===== 标题（居中） =====
     ui.vertical_centered(|ui| {
         ui.add_space(4.0);
-        ui.label(
-            RichText::new(crate::i18n::t("app.title"))
-            .color(theme::ACCENT)
-            .strong()
-            .size(22.0),
-        );
+        brand_lockup(ui, 64.0, 22.0, theme::TEXT_PRIMARY);
         ui.label(
             RichText::new(crate::i18n::t("app.subtitle"))
                 .color(theme::TEXT_SECONDARY)

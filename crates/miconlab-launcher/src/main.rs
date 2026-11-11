@@ -103,7 +103,7 @@ fn run_bin(name: &str, args: &[String]) -> i32 {
 
 /// 打印帮助。
 fn print_help() {
-    println!("{}", tr("miconlab Quick Launcher", "miconlab 快速启动器"));
+    println!("{}", tr("MiconLab Quick Launcher", "MiconLab 快速启动器"));
     println!();
     println!("{}", tr("Usage:", "用法："));
     println!(
